@@ -5,6 +5,7 @@ import com.security.demo.securitydemo.entity.User;
 import com.security.demo.securitydemo.entity.UserDetailView;
 import com.security.demo.securitydemo.entity.UserSimpleView;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * restfu风格curd
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -36,7 +40,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @JsonView(UserDetailView.class)
-    public User findById(@PathVariable String id) {
+    public User findById(@PathVariable Integer id) {
         return new User();
     }
 
@@ -61,7 +65,7 @@ public class UserController {
 
 
     @PutMapping("/update/{id}")
-    public String update(@Valid @RequestBody User user, BindingResult errors, @PathVariable String id) {
+    public String update(@Valid @RequestBody User user, BindingResult errors, @PathVariable Integer id) {
 
         System.out.println(id);
         if (errors.hasErrors()) {
@@ -74,4 +78,17 @@ public class UserController {
         System.out.println(user);
         return "success!";
     }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        System.out.println("id: " + id);
+        return "delete success";
+    }
+
+    @GetMapping("/find/error")
+    public void error() {
+        new RuntimeException("error方法！");
+    }
+
+
 }

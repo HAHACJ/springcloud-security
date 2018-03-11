@@ -1,12 +1,14 @@
 package com.security.demo.securitydemo.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.security.demo.securitydemo.validcustome.MyValid;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class User {
 
     private String id;
 
+    @MyValid(message = "名字测试")
     private String name;
 
     @NotBlank(message = "密码不能为空")
@@ -16,6 +18,7 @@ public class User {
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
